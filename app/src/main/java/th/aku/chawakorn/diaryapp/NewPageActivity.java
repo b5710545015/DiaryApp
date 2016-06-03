@@ -15,7 +15,6 @@ public class NewPageActivity extends AppCompatActivity {
 
 
     private TextView tvDisplayDate;
-    private DatePicker dpResult;
     private Button btnChangeDate;
 
     private int year;
@@ -45,7 +44,7 @@ public class NewPageActivity extends AppCompatActivity {
         day = c.get(Calendar.DAY_OF_MONTH);
 
         // set current date into textview
-        tvDisplayDate.setText(new StringBuilder()
+        tvDisplayDate.setText(new StringBuilder().append("Date (M-D-YYYY): ")
                 // Month is 0 based, just add 1
                 .append(month + 1).append("-").append(day).append("-")
                 .append(year).append(" "));
@@ -57,8 +56,7 @@ public class NewPageActivity extends AppCompatActivity {
 
         btnChangeDate = (Button) findViewById(R.id.btnChangeDate);
 
-        btnChangeDate.setOnClickListener(new View.OnClickListener() {
-
+        tvDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -91,7 +89,7 @@ public class NewPageActivity extends AppCompatActivity {
             month = selectedMonth;
             day = selectedDay;
 
-            tvDisplayDate.setText(new StringBuilder()
+            tvDisplayDate.setText(new StringBuilder().append("Date (M-D-YYYY): ")
                     // Month is 0 based, just add 1
                     .append(month + 1).append("-").append(day).append("-")
                     .append(year).append(" "));
