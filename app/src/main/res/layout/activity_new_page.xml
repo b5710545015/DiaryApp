@@ -9,35 +9,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="th.aku.chawakorn.diaryapp.NewPageActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="1">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-        <EditText
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnChangeDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText3"
-            android:layout_gravity="center_horizontal"
-            android:text="Date" />
+            android:text="Change Date" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/lblDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:text="Title" />
+            android:text="Current Date (M-D-YYYY): "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
-            android:text="Detail"
-            android:layout_weight="0.87" />
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
     </LinearLayout>
 </RelativeLayout>
