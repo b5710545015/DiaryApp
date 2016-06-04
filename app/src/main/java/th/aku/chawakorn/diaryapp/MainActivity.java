@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     protected Page page;
     private Intent intent;
-    private TextView textView;
     private ListView lv;
     private ArrayList<Page> pages;
     private ArrayAdapter<Page> arrayAdapter;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void init(){
-        textView = (TextView) findViewById(R.id.textView);
         lv = (ListView) findViewById(R.id.listView);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -74,25 +72,38 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 Log.i("HelloListView", pages.get(position).toString());
+                intent = new Intent(MainActivity.this, watchActivity.class);
+                page = pages.get(position);
+                intent.putExtra("page",page);
+                startActivityForResult(intent,2);
             }
         });
 
     }
 
-
+    public void sort(){
+        Collections.sort(pages, new Comparator<Page>() {
+            @Override public int compare(final Page o1, final Page o2) {
+                return o1.compareTo(o2);
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1&& resultCode == 1) {
            page = (Page) data.getExtras().getSerializable("pageReturn");
-            //textView.setText(new StringBuilder().append("return success"));
-            textView.setText(new StringBuilder().append(page.toString()));
             pages.add(page);
-            Collections.sort(pages, new Comparator<Page>() {
-                @Override public int compare(final Page o1, final Page o2) {
-                    return o1.compareTo(o2);
-                }
-            });
+            sort();
+            arrayAdapter.notifyDataSetChanged();
+
+        }
+
+        if(requestCode == 2 ) {
+            //page = (Page) data.getExtras().getSerializable("pageDel");
+            Log.i("HelloListView", "Del:"+page.toString());
+            pages.remove(page);
+            sort();
             arrayAdapter.notifyDataSetChanged();
 
         }

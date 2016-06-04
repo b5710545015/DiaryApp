@@ -91,11 +91,14 @@ public class Page implements Serializable{
     }
 
 
+    public String getDate(){
+        return (new StringBuilder().append(String.format("%02d",d)).append("/").append(String.format("%02d",m)).append("/").append(String.format("%04d",y))).toString();
+    }
     private String title,detail;
     private Image image;
 
     @Override
     public String toString() {
-        return ""+d+","+m+","+y+": "+title;
+        return getDate()+": "+title;
     }
 }

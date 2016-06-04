@@ -19,24 +19,20 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_height="433dp"
             android:id="@+id/listView"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.73" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="NEW PAGE"
-            android:id="@+id/button"
             android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.73" />
+
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NEW PAGE"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
