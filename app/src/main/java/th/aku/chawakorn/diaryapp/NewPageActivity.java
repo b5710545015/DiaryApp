@@ -24,6 +24,7 @@ public class NewPageActivity extends AppCompatActivity {
     private int day;
 
     private Page page;
+    private TextView title,detail;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -32,7 +33,8 @@ public class NewPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_page);
         //page = (Page) getIntent().getSerializableExtra("page");
-
+        title = (TextView)findViewById(R.id.titleText);
+        detail = (TextView)findViewById(R.id.detailText);
         setCurrentDateOnView();
         addListenerOnButton();
 
@@ -65,7 +67,7 @@ public class NewPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                page = new Page(day,month,year,"title","detail");
+                page = new Page(day,month,year,title.getText().toString(),detail.getText().toString());
                 resultIntent.putExtra("pageReturn", page);
                 setResult(1, resultIntent);
                 finish();

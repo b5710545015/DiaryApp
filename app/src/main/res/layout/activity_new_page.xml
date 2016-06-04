@@ -23,26 +23,41 @@
             android:text="Date (M-D-YYYY): "
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:layout_gravity="center_horizontal" />
+            android:text="Title"
+            android:id="@+id/textView2" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.89" />
+            android:id="@+id/titleText"
+            android:layout_gravity="center_horizontal" />
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/saveBtn"
-            android:layout_gravity="center_horizontal" />
+            android:text="Detail"
+            android:id="@+id/textView3" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailText"
+
+            android:scrollbars="vertical" />
 
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/saveBtn"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
