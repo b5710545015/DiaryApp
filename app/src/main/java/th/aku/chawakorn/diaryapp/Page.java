@@ -2,42 +2,40 @@ package th.aku.chawakorn.diaryapp;
 
 import android.media.Image;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DELL on 6/3/2016.
  */
-public class Page {
+public class Page implements Serializable{
     public Page(Date date, String title, String detail) {
-        this.date = date;
         this.title = title;
         this.detail = detail;
     }
 
-    private Date date;
-
-    public Date getDate() {
-        return date;
+    public int getD() {
+        return d;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setD(int d) {
+        this.d = d;
     }
 
-    public Image getImage() {
-        return image;
+    public int getM() {
+        return m;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setM(int m) {
+        this.m = m;
     }
 
-    public String getDetail() {
-        return detail;
+    public int getY() {
+        return y;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public String getTitle() {
@@ -48,6 +46,41 @@ public class Page {
         this.title = title;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    private int d;
+    private int m;
+    private int y;
+
+    public Page(int d, int m, int y, String title, String detail) {
+        this.d = d;
+        this.detail = detail;
+        this.title = title;
+        this.y = y;
+        this.m = m;
+    }
+
+
+
     private String title,detail;
     private Image image;
+
+    @Override
+    public String toString() {
+        return ""+d+","+m+","+y+": "+title;
+    }
 }
