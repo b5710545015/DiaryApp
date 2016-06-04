@@ -2,6 +2,7 @@ package th.aku.chawakorn.diaryapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,12 +29,27 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv;
     private ArrayList<Page> pages;
     private ArrayAdapter<Page> arrayAdapter;
+    private SharedPreferences mPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPrefs = getPreferences(MODE_PRIVATE);
         init();
+    }
+
+    private boolean loadData(){
+        Gson gson = new Gson();
+        pages = new ArrayList<Page>();
+        int size = mPrefs.getInt("size",0);
+        for(int i = 0;i<size;i++) {
+            String json = mPrefs.getString("MyObject"+i, null);
+            pages.add(gson.fromJson(json, Page.class));
+            Log.i("HelloListView", "loadData() returned: " + (pages != null));
+        }
+        return !pages.isEmpty();
     }
 
     public void init(){
@@ -52,9 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void createListView(){
 
-        pages = new ArrayList<Page>();
-        for(int i = 0;i<10;i++) {
-            pages.add(new Page (i,i,i,"title"+i,"blah blah blah"));
+        if(!loadData()){
+            pages = new ArrayList<Page>();
+            /*
+            for(int i = 0;i<10;i++) {
+                pages.add(new Page (i,i,i,"title"+i,"blah blah blah"));
+            }*/
         }
 
         // This is the array adapter, it takes the context of the activity as a
@@ -71,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
             {
 
-                Log.i("HelloListView", pages.get(position).toString());
+                //Log.i("HelloListView", pages.get(position).toString());
                 intent = new Intent(MainActivity.this, watchActivity.class);
                 page = pages.get(position);
                 intent.putExtra("page",page);
@@ -101,11 +122,21 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 2 ) {
             //page = (Page) data.getExtras().getSerializable("pageDel");
-            Log.i("HelloListView", "Del:"+page.toString());
+            //Log.i("HelloListView", "Del:"+page.toString());
             pages.remove(page);
             sort();
             arrayAdapter.notifyDataSetChanged();
 
+        }
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json;
+        prefsEditor.putInt("size",pages.size());
+        prefsEditor.commit();
+        for(int i = 0;i<pages.size();i++) {
+            json = gson.toJson(pages.get(i));
+            prefsEditor.putString("MyObject"+i, json);
+            prefsEditor.commit();
         }
     }
 }
