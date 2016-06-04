@@ -1,11 +1,19 @@
 package th.aku.chawakorn.diaryapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected Page page;
     private Intent intent;
     private TextView textView;
+    private ListView lv;
+    private ArrayList<Page> pages;
+    private ArrayAdapter<Page> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void init(){
         textView = (TextView) findViewById(R.id.textView);
+        lv = (ListView) findViewById(R.id.listView);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,9 +43,31 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, NewPageActivity.class);
                 //intent.putExtra("page",page);
                 startActivityForResult(intent,1);
+
             }
         });
+        createListView();
     }
+
+    public void createListView(){
+
+        pages = new ArrayList<Page>();
+        for(int i = 0;i<10;i++) {
+            pages.add(new Page (i,i,i,"title"+i,"blah blah blah"));
+        }
+
+        // This is the array adapter, it takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and your
+        // array as a third parameter.
+        arrayAdapter = new ArrayAdapter<Page>(
+                this,
+                android.R.layout.simple_list_item_1,
+                pages );
+
+        lv.setAdapter(arrayAdapter);
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -41,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
            page = (Page) data.getExtras().getSerializable("pageReturn");
             //textView.setText(new StringBuilder().append("return success"));
             textView.setText(new StringBuilder().append(page.toString()));
+            pages.add(page);
+            arrayAdapter.notifyDataSetChanged();
+
         }
     }
 }
