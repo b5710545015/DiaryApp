@@ -74,6 +74,21 @@ public class Page implements Serializable{
         this.m = m;
     }
 
+    public int compareTo(Page p){
+        if(this.getY()<p.getY()) return -1;
+        else if(this.getY()>p.getY()) return 1;
+        else{
+            if(this.getM()<p.getM()) return -1;
+            else if(this.getM()>p.getM()) return 1;
+            else{
+                if(this.getD()<p.getD()) return -1;
+                else if(this.getD()>p.getD()) return 1;
+                else{
+                    return this.getTitle().compareTo(p.getTitle());
+                }
+            }
+        }
+    }
 
 
     private String title,detail;

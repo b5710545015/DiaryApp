@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,8 +68,17 @@ public class MainActivity extends AppCompatActivity {
                 pages );
 
         lv.setAdapter(arrayAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+            {
+
+                Log.i("HelloListView", pages.get(position).toString());
+            }
+        });
 
     }
+
 
 
     @Override
@@ -76,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             //textView.setText(new StringBuilder().append("return success"));
             textView.setText(new StringBuilder().append(page.toString()));
             pages.add(page);
+            Collections.sort(pages, new Comparator<Page>() {
+                @Override public int compare(final Page o1, final Page o2) {
+                    return o1.compareTo(o2);
+                }
+            });
             arrayAdapter.notifyDataSetChanged();
 
         }
