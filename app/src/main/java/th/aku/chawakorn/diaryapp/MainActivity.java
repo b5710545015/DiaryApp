@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(requestCode == 2 ) {
+        if(requestCode == 2 && resultCode==1) {
             //page = (Page) data.getExtras().getSerializable("pageDel");
             //Log.i("HelloListView", "Del:"+page.toString());
             pages.remove(page);
